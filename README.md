@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Shadcn/UI Landing Page Template
 
 ## <a href="https://ui.shadcn.com/" target="_blank">ShadcnUI</a> + <a href="https://react.dev/" target="_blank">React</a> + <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a> + <a href="https://tailwindcss.com/" target="_blank">Tailwind</a>.
@@ -57,3 +58,6 @@ npm install
 ```bash
 npm run dev
 ```
+=======
+# CoriEduLanding
+>>>>>>> 9114a8c4d017eb7aa9aba90477c38c60fc8eeb11
