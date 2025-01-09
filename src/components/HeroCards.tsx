@@ -9,7 +9,7 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
-import { Check, Clock } from "lucide-react"; // Importa o ícone Clock
+import { Check, Clock, Mail } from "lucide-react"; // Importa o ícone Clock
 import { LightBulbIcon } from "./Icons";
 import ScheduleTestModal from "./ScheduleTestModal"; // Importa o componente modal
 
@@ -72,7 +72,7 @@ export const HeroCards = () => {
       {/* Card de Pricing Atualizado */}
       <Card className="absolute top-[150px] left-[50px] w-72 drop-shadow-xl shadow-black/10 dark:shadow-white/10">
         <CardHeader className="text-center flex flex-col items-center">
-          <CardTitle className="text-2xl font-bold">Enterprise</CardTitle>
+          <CardTitle className="text-2xl font-bold">Plano Enterprise</CardTitle>
           <Badge
             variant="secondary"
             className="mt-2 mb-2 text-base text-[#9ACB3F] bg-secondary border-secondary border px[3px]"
@@ -90,8 +90,8 @@ export const HeroCards = () => {
             style={{ backgroundColor: "#524FB6" }}
             onClick={handleOpenModal} // Abre o modal ao clicar no botão
           >
-            <Clock className="w-4 h-4 mr-2" />
-            Lista de Espera
+            <Mail className="w-4 h-4 mr-2" />
+            Fale Conosco
           </Button>
         </CardContent>
 

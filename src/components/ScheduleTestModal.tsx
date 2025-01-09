@@ -181,7 +181,7 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
         >
           <DialogHeader className="flex justify-center">
             <DialogTitle id="dialog-title" className="text-center">
-              Cadastro Lista de Espera
+              Entre em Contato
             </DialogTitle>
           </DialogHeader>
 

@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import Gi from "../assets/Giovanna.png";
 import {
   Card,
   CardContent,
@@ -16,24 +17,25 @@ interface TestimonialProps {
 
 const testimonials: TestimonialProps[] = [
   {
-    image: "https://i.pravatar.cc/150?img=47",
-    name: "Ana Maria",
+    image: Gi,
+    name: "Giovanna Macanhã",
     userName: "Estudante de Medicina",
-    comment: "A plataforma me ajudou a ganhar confiança nas consultas reais.",
+    comment:
+      "Foi ótimo para revisar casos comuns e me sentir mais segura antes de encarar o internato.",
   },
   {
     image: "https://i.pravatar.cc/150?img=32",
     name: "Sabrina Bianchi",
     userName: "Estudante de Medicina",
     comment:
-      "Participar das simulações me permitiu entender melhor o processo clínico e aprimorar minhas habilidades de diagnóstico. Recomendo a todos os colegas!",
+      "Gostei de praticar o raciocínio clínico e ver como funcionam as consultas na prática.",
   },
   {
     image: "https://i.pravatar.cc/150?img=10",
     name: "Maria Fernandes",
     userName: "Estudante de Medicina",
     comment:
-      "A plataforma de simulações médicas me ajudou a visualizar casos clínicos reais antes mesmo de entrar no hospital. Sinto que estou muito mais preparada para os desafios do dia a dia na medicina.",
+      "A plataforma me fez perceber que preciso aprimorar a empatia e a comunicação com os pacientes.",
   },
 ];
 

@@ -24,13 +24,11 @@ const pricingList: PricingProps[] = [
   {
     title: "Enterprise",
     description:
-      "Perfeito para universidades e instituições que desejam oferecer uma experiência completa de simulação para seus alunos.",
-    buttonText: "Lista de Espera", // Atualizado para "Lista de Espera"
+      "Para universidades e Instituições que desejam oferecer uma experiência humanizada de simulação.",
+    buttonText: "Fale Conosco", // Atualizado para "Lista de Espera"
     benefitList: [
-      "Acesso personalizado para equipes grandes",
+      "Acesso personalizado para grandes equipes",
       "Casos clínicos personalizados conforme necessidade",
-
-      "Integração com sistemas de aprendizado existentes",
       "Treinamento e workshops exclusivos para professores",
     ],
   },

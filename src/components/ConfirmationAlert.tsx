@@ -38,10 +38,7 @@ const ConfirmationAlert: React.FC<ConfirmationAlertProps> = ({
           <AlertDialogTitle className="text-2xl font-semibold">
             Cadastro Realizado com Sucesso!
           </AlertDialogTitle>
-          <p className="mt-2">
-            Você foi cadastrado na lista de espera. Entraremos em contato em
-            breve.
-          </p>
+          <p className="mt-2">Entraremos em contato em breve!</p>
           {/* Botão "OK" removido */}
         </AlertDialogContent>
       </AlertDialogPortal>
