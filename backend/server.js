@@ -1,4 +1,3 @@
-// server.js
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -7,13 +6,19 @@ import { open } from "sqlite";
 import jwt from "jsonwebtoken";
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
-// Use uma variável de ambiente para o segredo do JWT em produção
+// Use uma variável de ambiente para o segredo do JWT
 const JWT_SECRET = process.env.JWT_SECRET || "minha_chave_secreta";
 
 // Middleware global
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://corieducational.com", // Permite apenas o domínio oficial
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(bodyParser.json());
 
 // Função para abrir o banco de dados
@@ -29,12 +34,11 @@ async function openDb() {
   try {
     const db = await openDb();
 
-    // Criação da tabela com restrições
     await db.exec(`
       CREATE TABLE IF NOT EXISTS formData (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        email TEXT NOT NULL UNIQUE, -- E-mail único para evitar duplicatas
+        email TEXT NOT NULL UNIQUE,
         profession TEXT,
         university TEXT,
         period TEXT,
@@ -42,14 +46,12 @@ async function openDb() {
         institution TEXT
       );
 
-      -- Trigger para prevenir DELETE
       CREATE TRIGGER IF NOT EXISTS prevent_delete
       BEFORE DELETE ON formData
       BEGIN
         SELECT RAISE(FAIL, 'Operação DELETE não permitida');
       END;
 
-      -- Trigger para prevenir UPDATE
       CREATE TRIGGER IF NOT EXISTS prevent_update
       BEFORE UPDATE ON formData
       BEGIN
@@ -108,7 +110,6 @@ app.get("/api/login", (req, res) => {
 
 /**
  * Rota para salvar os dados do formulário
- * Apenas insere novos registros no banco
  */
 app.post("/api/form", async (req, res) => {
   const {
@@ -124,7 +125,6 @@ app.post("/api/form", async (req, res) => {
   try {
     const db = await openDb();
 
-    // Insere novos registros no banco
     const result = await db.run(
       `INSERT INTO formData (name, email, profession, university, period, specialization, institution)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
@@ -147,7 +147,6 @@ app.post("/api/form", async (req, res) => {
 
 /**
  * Rota para obter todos os dados do formulário
- * Protegida pelo middleware verifyToken
  */
 app.get("/api/form", verifyToken, async (req, res) => {
   try {
@@ -160,7 +159,19 @@ app.get("/api/form", verifyToken, async (req, res) => {
   }
 });
 
-// Inicia o servidor
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+/**
+ * Rota para limpar os dados do banco de dados
+ */
+app.post("/api/clear", verifyToken, async (req, res) => {
+  try {
+    const db = await openDb();
+    await db.run("DELETE FROM formData"); // Remove todos os dados
+    res.status(200).json({ message: "Banco de dados limpo com sucesso." });
+  } catch (error) {
+    console.error("Erro ao limpar o banco de dados:", error);
+    res.status(500).json({ error: "Erro ao limpar o banco de dados." });
+  }
 });
+
+// Exportação para Vercel
+export default app;

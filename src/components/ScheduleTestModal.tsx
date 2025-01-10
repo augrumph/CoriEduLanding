@@ -129,7 +129,7 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
 
       try {
         // Enviar dados para o back-end
-        const response = await fetch("http://localhost:5000/api/form", {
+        const response = await fetch("https://corieducational.com/api/form", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

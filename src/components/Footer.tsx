@@ -26,11 +26,11 @@ export const Footer = () => {
 
       <section className="container pb-14 text-center">
         <h3>
-          &copy; 2024 made by{" "}
+          &copy; 2025 made by{" "}
           <a
             rel="noreferrer noopener"
             target="_blank"
-            href="https://www.linkedin.com/in/leopoldo-miranda/"
+            href="#"
             className="
               gradient-underline 
               dark:text-transparent 
