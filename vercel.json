@@ -1,8 +1,5 @@
 {
   "version": 2,
-
-  "concurrentInstances": 1,
-
   "builds": [
     {
       "src": "backend/server.js",
