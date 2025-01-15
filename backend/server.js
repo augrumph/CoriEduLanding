@@ -14,17 +14,19 @@ const JWT_SECRET = process.env.JWT_SECRET || "minha_chave_secreta";
 // Middleware global
 app.use(
   cors({
-    origin: "https://corieducational.com", // Permite apenas o domínio oficial
+    origin: ["https://corieducational.com", "https://www.corieducational.com"],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(bodyParser.json());
 
-// Função para abrir o banco de dados
+// Função para abrir o banco de dados na pasta /tmp (Vercel)
 async function openDb() {
   return open({
-    filename: "database.db",
+    // Ajuste: usar /tmp/database.db para escrever em ambiente serverless
+    filename: "/tmp/database.db",
     driver: sqlite3.Database,
   });
 }
@@ -33,7 +35,6 @@ async function openDb() {
 (async () => {
   try {
     const db = await openDb();
-
     await db.exec(`
       CREATE TABLE IF NOT EXISTS formData (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -124,7 +125,6 @@ app.post("/api/form", async (req, res) => {
 
   try {
     const db = await openDb();
-
     const result = await db.run(
       `INSERT INTO formData (name, email, profession, university, period, specialization, institution)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
