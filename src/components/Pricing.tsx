@@ -30,6 +30,7 @@ const pricingList: PricingProps[] = [
       "Acesso personalizado para grandes equipes",
       "Casos clínicos personalizados conforme necessidade",
       "Treinamento e workshops exclusivos para professores",
+      "Simulações clínicas para os alunos",
     ],
   },
 ];
@@ -56,8 +57,7 @@ export const Pricing = () => {
       </h2>
 
       <h3 className="text-xl text-center text-muted-foreground pt-4 pb-8">
-        Escolha o plano ideal para você ou sua instituição e comece a treinar em
-        situações reais.
+        Escolha o plano ideal para sua instituição
       </h3>
 
       {/* Container Flex para centralizar o card */}
