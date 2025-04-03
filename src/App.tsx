@@ -1,29 +1,10 @@
-import { About } from "./components/About";
-import { FAQ } from "./components/FAQ";
-import { Footer } from "./components/Footer";
-import { Hero } from "./components/Hero";
-import { HowItWorks } from "./components/HowItWorks";
-import { Navbar } from "./components/Navbar";
-import { Pricing } from "./components/Pricing";
-import { ScrollToTop } from "./components/ScrollToTop";
-import { Testimonials } from "./components/Testimonials";
-import GoogleTag from "./components/GoogleTag";
-
+// App.tsx
+import React from "react";
+import { AppRoutes } from "./AppRoutes";
 import "./App.css";
 
 function App() {
-  return (
-    <>
-      <Navbar />
-      <Hero />
-      <HowItWorks />
-      <Testimonials />
-      <Pricing />
-      <FAQ />
-      <Footer />
-      <ScrollToTop />
-    </>
-  );
+  return <AppRoutes />;
 }
 
 export default App;

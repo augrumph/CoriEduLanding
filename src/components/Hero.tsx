@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { buttonVariants } from "./ui/button";
-import { ArrowDownCircle, Rocket } from "lucide-react"; // Alterado para importar Rocket
-import ScheduleTestModal from "./ScheduleTestModal"; // Importação do modal
+import { ArrowDownCircle, Rocket } from "lucide-react";
 import GoogleTag from "./GoogleTag";
+
 export const Hero = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <section className="container flex flex-col justify-center items-center h-[calc(100vh-175px)] py-20 text-center space-y-8">
@@ -55,12 +55,14 @@ export const Hero = () => {
 
         {/* Botões */}
         <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-4 space-y-4 sm:space-y-0 w-full max-w-[500px] mx-auto">
+          {/* Botão que navega para /modal mantendo a estilização original */}
           <Button
-            onClick={() => setIsModalOpen(true)}
+            asChild
             className="flex-1 bg-[#524FB6] text-white text-[1rem] py-3 hover:bg-primary-dark font-normal flex items-center justify-center gap-2 min-w-[200px]"
           >
-            <Rocket className="h-5 w-5" /> {/* Ícone do foguete */}
-            Acesse o Beta
+            <Link to="/modal" state={{ backgroundLocation: location }}>
+              <Rocket className="h-5 w-5" /> Acesse o Beta
+            </Link>
           </Button>
 
           <a
@@ -74,9 +76,6 @@ export const Hero = () => {
           </a>
         </div>
       </div>
-
-      {/* Modal para Agendar Teste */}
-      <ScheduleTestModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </section>
   );
 };

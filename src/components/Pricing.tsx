@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLocation, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import GoogleTag from "./GoogleTag";
 import {
@@ -9,9 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Check, Clock, Rocket } from "lucide-react"; // Importa o Rocket
+import { Check, Clock, Rocket } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import ScheduleTestModal from "./ScheduleTestModal";
 
 interface PricingProps {
   title: string;
@@ -50,15 +49,7 @@ const pricingList: PricingProps[] = [
 ];
 
 export const Pricing = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const location = useLocation();
 
   return (
     <section id="pricing" className="container pt-24 sm:pt-32">
@@ -95,21 +86,23 @@ export const Pricing = () => {
 
             <CardContent>
               <Button
+                asChild
                 className="w-full text-white flex items-center justify-center"
                 style={{ backgroundColor: "#524FB6" }}
-                onClick={handleOpenModal} // Ambos os botões abrem o modal
               >
-                {plan.title === "Individual" ? (
-                  <>
-                    <Rocket className="w-4 h-4 mr-2" />
-                    {plan.buttonText}
-                  </>
-                ) : (
-                  <>
-                    <Clock className="w-4 h-4 mr-2" />
-                    {plan.buttonText}
-                  </>
-                )}
+                <Link to="/modal" state={{ backgroundLocation: location }}>
+                  {plan.title === "Individual" ? (
+                    <>
+                      <Rocket className="w-4 h-4 mr-2" />
+                      {plan.buttonText}
+                    </>
+                  ) : (
+                    <>
+                      <Clock className="w-4 h-4 mr-2" />
+                      {plan.buttonText}
+                    </>
+                  )}
+                </Link>
               </Button>
             </CardContent>
 
@@ -126,8 +119,8 @@ export const Pricing = () => {
           </Card>
         ))}
       </div>
-
-      <ScheduleTestModal open={isModalOpen} onOpenChange={handleCloseModal} />
     </section>
   );
 };
+
+export default Pricing;
