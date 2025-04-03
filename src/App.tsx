@@ -7,6 +7,7 @@ import { Navbar } from "./components/Navbar";
 import { Pricing } from "./components/Pricing";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { Testimonials } from "./components/Testimonials";
+import GoogleTag from "./components/GoogleTag";
 
 import "./App.css";
 
