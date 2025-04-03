@@ -48,7 +48,7 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  // Função para lidar com mudanças nos inputs
+  // Lida com a mudança nos inputs
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -64,25 +64,25 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
     }));
   };
 
-  // Função para lidar com mudanças na profissão
+  // Lida com a mudança na profissão e reseta os campos relacionados
   const handleProfessionChange = (value: string) => {
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       profession: value,
       university: "",
       period: "",
       specialization: "",
       institution: "",
-    });
+    }));
     // Limpa todos os erros ao mudar a profissão
     setErrors({});
   };
 
-  // Função de validação do formulário
+  // Validação do formulário
   const validate = (): boolean => {
     const newErrors: { [key: string]: string } = {};
 
-    // Validação sempre obrigatória
+    // Valida os campos sempre obrigatórios
     if (!formData.name.trim()) {
       newErrors.name = "Nome é obrigatório.";
     }
@@ -94,7 +94,7 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
       newErrors.email = "Email inválido.";
     }
 
-    // Validação condicional para Estudante
+    // Validação para Estudante
     if (formData.profession === "Estudante") {
       if (!formData.university.trim()) {
         newErrors.university = "Universidade é obrigatória.";
@@ -104,7 +104,7 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
       }
     }
 
-    // Validação condicional para Médico e Outros
+    // Validação para Médico e Outros
     if (formData.profession === "Médico" || formData.profession === "Outros") {
       if (!formData.specialization.trim()) {
         newErrors.specialization = "Especialização ou cargo é obrigatório.";
@@ -115,30 +115,46 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
     }
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
-  // Função para lidar com o envio do formulário
+  // Envio do formulário com payload condicional
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitError(null); // Resetar erros de submissão
+    setSubmitError(null);
 
     if (validate()) {
       setIsSubmitting(true);
 
       try {
-        // Enviar dados para o back-end
+        // Cria o payload apenas com os campos necessários
+        const payload =
+          formData.profession === "Estudante"
+            ? {
+                name: formData.name,
+                email: formData.email,
+                profession: formData.profession,
+                university: formData.university,
+                period: formData.period,
+              }
+            : {
+                name: formData.name,
+                email: formData.email,
+                profession: formData.profession,
+                specialization: formData.specialization,
+                institution: formData.institution,
+              };
+
         const response = await fetch("https://corieducational.com/api/form", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(payload),
         });
 
         if (response.ok) {
-          // Resetar o formulário
+          // Reseta o formulário e exibe a confirmação
           setFormData({
             name: "",
             email: "",
@@ -148,8 +164,8 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
             specialization: "",
             institution: "",
           });
-          onOpenChange(false); // Fecha o modal do formulário
-          setIsAlertOpen(true); // Abre o alerta de confirmação
+          onOpenChange(false);
+          setIsAlertOpen(true);
         } else {
           const errorData = await response.json();
           setSubmitError(
@@ -167,9 +183,9 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
     }
   };
 
-  // Função para confirmar o alerta de sucesso
+  // Fecha o alerta de confirmação
   const handleConfirm = () => {
-    setIsAlertOpen(false); // Fecha o alerta
+    setIsAlertOpen(false);
   };
 
   return (
@@ -342,7 +358,7 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
         </DialogContent>
       </Dialog>
 
-      {/* Inclui o Alerta de Confirmação */}
+      {/* Alerta de Confirmação */}
       <ConfirmationAlert isOpen={isAlertOpen} onClose={handleConfirm} />
     </>
   );
