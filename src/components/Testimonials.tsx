@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Gi from "../assets/Giovanna.png";
+import GoogleTag from "./GoogleTag";
 import {
   Card,
   CardContent,

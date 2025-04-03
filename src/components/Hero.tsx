@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import { buttonVariants } from "./ui/button";
 import { ArrowDownCircle, Rocket } from "lucide-react"; // Alterado para importar Rocket
 import ScheduleTestModal from "./ScheduleTestModal"; // Importação do modal
-
+import GoogleTag from "./GoogleTag";
 export const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -7,7 +7,7 @@ import { Instagram, Linkedin } from "lucide-react"; // Importando os ícones do 
 import { buttonVariants } from "./ui/button";
 import whiteLogo from "@/assets/white-logo.png"; // Importando a imagem
 import { MouseEvent } from "react";
-
+import GoogleTag from "./GoogleTag";
 interface RouteProps {
   href: string;
   label: string;

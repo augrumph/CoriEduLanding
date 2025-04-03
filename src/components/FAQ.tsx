@@ -1,3 +1,4 @@
+import GoogleTag from "./GoogleTag";
 import {
   Accordion,
   AccordionContent,

@@ -1,4 +1,5 @@
 import { LogoIcon } from "./Icons";
+import GoogleTag from "./GoogleTag";
 import whiteLogo from "@/assets/white-logo.png"; // Certifique-se que o caminho do logo está correto
 
 export const Footer = () => {
