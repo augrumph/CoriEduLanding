@@ -55,7 +55,7 @@ export const Hero = () => {
 
         {/* Botões */}
         <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-4 space-y-4 sm:space-y-0 w-full max-w-[500px] mx-auto">
-          {/* Botão que navega para /modal mantendo a estilização original */}
+          {/* Botão que navega para o modal – com HashRouter o endereço será /#/modal */}
           <Button
             asChild
             className="flex-1 bg-[#524FB6] text-white text-[1rem] py-3 hover:bg-primary-dark font-normal flex items-center justify-center gap-2 min-w-[200px]"
