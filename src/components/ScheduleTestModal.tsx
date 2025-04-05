@@ -48,7 +48,7 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  // Lida com a mudança nos inputs
+  // Trata as alterações nos inputs e limpa os erros correspondentes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -57,14 +57,13 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
       [name]: value,
     }));
 
-    // Limpa o erro correspondente ao campo alterado
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: "",
     }));
   };
 
-  // Lida com a mudança na profissão e reseta os campos relacionados
+  // Trata a alteração na profissão e reseta os campos relacionados
   const handleProfessionChange = (value: string) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -74,15 +73,13 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
       specialization: "",
       institution: "",
     }));
-    // Limpa todos os erros ao mudar a profissão
     setErrors({});
   };
 
-  // Validação do formulário
+  // Valida os campos do formulário
   const validate = (): boolean => {
     const newErrors: { [key: string]: string } = {};
 
-    // Valida os campos sempre obrigatórios
     if (!formData.name.trim()) {
       newErrors.name = "Nome é obrigatório.";
     }
@@ -94,7 +91,6 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
       newErrors.email = "Email inválido.";
     }
 
-    // Validação para Estudante
     if (formData.profession === "Estudante") {
       if (!formData.university.trim()) {
         newErrors.university = "Universidade é obrigatória.";
@@ -104,7 +100,6 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
       }
     }
 
-    // Validação para Médico e Outros
     if (formData.profession === "Médico" || formData.profession === "Outros") {
       if (!formData.specialization.trim()) {
         newErrors.specialization = "Especialização ou cargo é obrigatório.";
@@ -118,7 +113,7 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
     return Object.keys(newErrors).length === 0;
   };
 
-  // Envio do formulário com payload condicional
+  // Envia o formulário e cria o payload condicionalmente
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError(null);
@@ -127,7 +122,6 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
       setIsSubmitting(true);
 
       try {
-        // Cria o payload apenas com os campos necessários
         const payload =
           formData.profession === "Estudante"
             ? {
@@ -154,7 +148,6 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
         });
 
         if (response.ok) {
-          // Reseta o formulário e exibe a confirmação
           setFormData({
             name: "",
             email: "",
@@ -192,6 +185,9 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent
+          id="scheduleTestModal"
+          role="dialog"
+          aria-labelledby="dialog-title"
           aria-describedby="dialog-description"
           className="sm:max-w-[425px] bg-[#1C1917] text-white p-6"
         >
@@ -200,6 +196,10 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
               Entre em Contato
             </DialogTitle>
           </DialogHeader>
+          {/* Descrição oculta para acessibilidade */}
+          <span id="dialog-description" className="sr-only">
+            Preencha o formulário para agendar seu teste.
+          </span>
 
           <form onSubmit={handleSubmit} className="grid gap-4 py-4">
             {/* Input de Nome */}
@@ -340,7 +340,7 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
               </>
             )}
 
-            {/* Mensagem de Erro de Submissão */}
+            {/* Mensagem de erro de submissão */}
             {submitError && (
               <div className="text-red-500 text-sm">{submitError}</div>
             )}
@@ -358,7 +358,6 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
         </DialogContent>
       </Dialog>
 
-      {/* Alerta de Confirmação */}
       <ConfirmationAlert isOpen={isAlertOpen} onClose={handleConfirm} />
     </>
   );
