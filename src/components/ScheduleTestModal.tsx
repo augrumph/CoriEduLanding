@@ -1,8 +1,6 @@
-// ScheduleTestModal.tsx
-
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +13,27 @@ import {
   DialogFooter,
 } from "../components/ui/dialog";
 import ConfirmationAlert from "./ConfirmationAlert";
+
+// Event snippet for Enviar formulário de lead conversion page
+// Em sua página, adicione este snippet e chame a função gtag_report_conversion() quando alguém clicar
+// para abrir o modal.
+const gtag_report_conversion = (url?: string) => {
+  const callback = () => {
+    if (typeof url !== "undefined") {
+      window.location.href = url;
+    }
+  };
+
+  if (typeof window !== "undefined" && (window as any).gtag) {
+    (window as any).gtag("event", "conversion", {
+      send_to: "AW-16585862288/rP7aCKae97YaEJDZ4OQ9",
+      event_callback: callback,
+    });
+  } else {
+    console.error("gtag is not defined");
+  }
+  return false;
+};
 
 interface ScheduleTestModalProps {
   open: boolean;
@@ -47,6 +66,13 @@ const ScheduleTestModal: React.FC<ScheduleTestModalProps> = ({
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+
+  // Chama a função de conversão quando o modal for aberto
+  useEffect(() => {
+    if (open) {
+      gtag_report_conversion();
+    }
+  }, [open]);
 
   // Trata as alterações nos inputs e limpa os erros correspondentes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
