@@ -23,12 +23,11 @@ interface PricingProps {
 const pricingList: PricingProps[] = [
   {
     title: "Individual",
-    price: 39,
     description:
       "Para estudantes e médicos que buscam aprimorar suas habilidades com simulações online realistas.",
     buttonText: "Acesse o Beta",
     benefitList: [
-      "Consulta simulada única com abordagem prática e interativa",
+      "Consulta simulada com abordagem prática e interativa",
       "Feedback personalizado via inteligência",
       "Acesse e revise sua consulta para aprimorar seus conhecimentos",
       "Flexibilidade total para escolher o melhor horário",
